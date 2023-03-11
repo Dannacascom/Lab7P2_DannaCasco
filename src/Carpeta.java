@@ -3,16 +3,19 @@ import java.util.ArrayList;
 
 
 public class Carpeta {
-    private String nombre;
+    private String nombre,link;
     private ArrayList<Archivo> archivo = new ArrayList();
     private ArrayList<Carpeta> carpeta = new ArrayList();
 
     public Carpeta() {
     }
 
-    public Carpeta(String nombre) {
+    public Carpeta(String nombre, String link) {
         this.nombre = nombre;
+        this.link = link;
     }
+
+    
 
     public String getNombre() {
         return nombre;
@@ -38,9 +41,17 @@ public class Carpeta {
         this.carpeta = carpeta;
     }
 
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
+    }
+
     @Override
     public String toString() {
-        return "Carpeta{" + "nombre=" + nombre + ", archivo=" + archivo + ", carpeta=" + carpeta + '}';
+        return nombre;
     }
 
     

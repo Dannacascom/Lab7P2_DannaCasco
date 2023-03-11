@@ -5,7 +5,7 @@ public class Archivo {
 
     public Archivo() {
     }
-
+    
     public Archivo(String nombre, String link, String extension, double tamaño) {
         this.nombre = nombre;
         this.link = link;
@@ -47,7 +47,7 @@ public class Archivo {
 
     @Override
     public String toString() {
-        return "Archivo{" + "nombre=" + nombre + ", link=" + link + ", extension=" + extension + ", tama\u00f1o=" + tamaño + '}';
+        return nombre;
     }
     
     
