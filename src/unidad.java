@@ -1,5 +1,6 @@
 
 import java.awt.event.MouseEvent;
+import java.util.Date;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JTree;
@@ -17,9 +18,11 @@ import javax.swing.tree.TreePath;
  * @author Danna Casco
  */
 public class unidad extends javax.swing.JPanel {
-
+    MainLab7 main = new MainLab7();
     destacados d = new destacados();
     papelera p = new papelera();
+    Archivo a = new Archivo();
+    
 
     public unidad() {
         initComponents();
@@ -37,6 +40,7 @@ public class unidad extends javax.swing.JPanel {
         pop = new javax.swing.JPopupMenu();
         destacar = new javax.swing.JMenuItem();
         eliminar = new javax.swing.JMenuItem();
+        download = new javax.swing.JMenuItem();
         jScrollPane3 = new javax.swing.JScrollPane();
         treeu = new javax.swing.JTree();
 
@@ -55,6 +59,13 @@ public class unidad extends javax.swing.JPanel {
             }
         });
         pop.add(eliminar);
+
+        download.setText("Download\n");
+        download.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                downloadActionPerformed(evt);
+            }
+        });
 
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("root");
         treeu.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
@@ -132,6 +143,32 @@ public class unidad extends javax.swing.JPanel {
 
     }//GEN-LAST:event_eliminarActionPerformed
 
+    private void downloadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_downloadActionPerformed
+        // TODO add your handling code here:
+         DefaultMutableTreeNode nod;
+        if(treeu.isVisible()){
+         Object  obj  = treeu.getSelectionPath().getLastPathComponent();
+                   nod  = (DefaultMutableTreeNode) obj;
+            for (Archivo archivo : main.getar() ) {
+                if( archivo.equals((Archivo) nod.getUserObject()) ){
+                    main.getlinktxt().setText(main.getlink());
+                    Barra barra = new Barra(main.getbarr(),a.getTamaño() );
+                    barra.run();
+                }
+            }
+        }else{
+         Object obj = d.getTree().getSelectionPath().getLastPathComponent();
+            nod = (DefaultMutableTreeNode) obj;
+            for (Archivo archivo : main.getar()) {
+                if( archivo.equals((Archivo) nod.getUserObject()) ){
+                    main.getlinktxt().setText(main.getlink());
+                    Barra barra = new Barra(main.getbarr(), a.getTamaño());
+                    barra.run();
+                }
+            }
+        }
+    }//GEN-LAST:event_downloadActionPerformed
+
     public void destacar(JTree tree) {
         Object obj = tree.getSelectionPath().getLastPathComponent();
         DefaultMutableTreeNode nod = (DefaultMutableTreeNode) obj;
@@ -152,8 +189,11 @@ public class unidad extends javax.swing.JPanel {
         root2.add((DefaultMutableTreeNode) nod);
         model2.reload();
     }
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem destacar;
+    private javax.swing.JMenuItem download;
     private javax.swing.JMenuItem eliminar;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;

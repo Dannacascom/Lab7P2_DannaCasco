@@ -2,7 +2,9 @@
 import java.awt.BorderLayout;
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JProgressBar;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
@@ -15,12 +17,17 @@ public class MainLab7 extends javax.swing.JFrame {
     unidad u = new unidad ();
     destacados d = new destacados();
     papelera p = new papelera();
+    String link;
+
 
 
     public MainLab7() {
         initComponents();
     }
 
+   public  ArrayList<Archivo> getar() {
+       return ar;
+   }
    
    
     @SuppressWarnings("unchecked")
@@ -36,6 +43,7 @@ public class MainLab7 extends javax.swing.JFrame {
         bar = new javax.swing.JProgressBar();
         treeP = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        linktxt = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -137,7 +145,10 @@ public class MainLab7 extends javax.swing.JFrame {
                         .addComponent(bar, javax.swing.GroupLayout.PREFERRED_SIZE, 432, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(bgLayout.createSequentialGroup()
                         .addGap(160, 160, 160)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(bgLayout.createSequentialGroup()
+                        .addGap(128, 128, 128)
+                        .addComponent(linktxt, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(23, Short.MAX_VALUE))
         );
         bgLayout.setVerticalGroup(
@@ -147,11 +158,13 @@ public class MainLab7 extends javax.swing.JFrame {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(bar, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(51, 51, 51)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(linktxt, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(botones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(treeP, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addContainerGap(56, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -223,16 +236,15 @@ public class MainLab7 extends javax.swing.JFrame {
             modelo = (DefaultTreeModel) d.getTree().getModel();
         }
         DefaultMutableTreeNode raiz = (DefaultMutableTreeNode) modelo.getRoot();
-
+        link =  "dive.google.com/" + cadenaAleatoria(5);
          String[] opciones = {"Archivo", "Carpeta"};
         String op = (String) JOptionPane.showInputDialog(this, "Seleccione una opción", "Creacion", JOptionPane.PLAIN_MESSAGE, null, opciones, opciones[0]);
         String name ;
-        String link;
         if (op.equals("Carpeta")) {
             name = JOptionPane.showInputDialog(this, "Nombre de carpeta:");
             Carpeta c = new Carpeta(
                     name,
-                    "dive.google.com/" + cadenaAleatoria(5)
+                   link
             );
             car.add(c);
 
@@ -260,7 +272,9 @@ public class MainLab7 extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_crearActionPerformed
 
-    
+    public JProgressBar getbarr(){
+        return bar;
+    }
     public static String cadenaAleatoria(int longitud) {
         String chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
         String cadena = "";
@@ -275,6 +289,17 @@ public class MainLab7 extends javax.swing.JFrame {
     public static int numeroAleatorioEnRango(int minimo, int maximo) {
         return ThreadLocalRandom.current().nextInt(minimo, maximo + 1);
     }
+    
+    public String getlink(){
+        return link;
+    }
+    
+    public JLabel getlinktxt(){
+        return linktxt;
+    }
+    
+    
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -314,6 +339,7 @@ public class MainLab7 extends javax.swing.JFrame {
     private javax.swing.JButton crear;
     private javax.swing.JButton destacadosB;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel linktxt;
     private javax.swing.JButton miUnidadB;
     private javax.swing.JButton papeleraB;
     private javax.swing.JPanel treeP;
