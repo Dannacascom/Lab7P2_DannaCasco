@@ -3,7 +3,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JProgressBar;
 
 
-public class Barra {
+public class Barra extends Thread{
     private JProgressBar bar;
     private double largo;
 
@@ -16,6 +16,7 @@ public class Barra {
     }
 
    
+    @Override
     public void run() {
         int contador = 0;
         while (contador <= 100) {

@@ -146,8 +146,9 @@ public class unidad extends javax.swing.JPanel {
     private void downloadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_downloadActionPerformed
         // TODO add your handling code here:
          DefaultMutableTreeNode nod;
+         Object  obj;
         if(treeu.isVisible()){
-         Object  obj  = treeu.getSelectionPath().getLastPathComponent();
+          obj  = treeu.getSelectionPath().getLastPathComponent();
                    nod  = (DefaultMutableTreeNode) obj;
             for (Archivo archivo : main.getar() ) {
                 if( archivo.equals((Archivo) nod.getUserObject()) ){
@@ -157,7 +158,7 @@ public class unidad extends javax.swing.JPanel {
                 }
             }
         }else{
-         Object obj = d.getTree().getSelectionPath().getLastPathComponent();
+       obj = d.getTree().getSelectionPath().getLastPathComponent();
             nod = (DefaultMutableTreeNode) obj;
             for (Archivo archivo : main.getar()) {
                 if( archivo.equals((Archivo) nod.getUserObject()) ){
