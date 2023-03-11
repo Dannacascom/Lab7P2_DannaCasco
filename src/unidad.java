@@ -12,15 +12,15 @@ import javax.swing.tree.TreePath;
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-
 /**
  *
  * @author Danna Casco
  */
 public class unidad extends javax.swing.JPanel {
-destacados d = new destacados();
-papelera p = new papelera();
-    
+
+    destacados d = new destacados();
+    papelera p = new papelera();
+
     public unidad() {
         initComponents();
     }
@@ -85,7 +85,7 @@ papelera p = new papelera();
 
     private void treeuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_treeuMouseClicked
         // TODO add your handling code here;
-       try {
+        try {
             if (evt.isMetaDown()) {
                 Object obj = treeu.getSelectionPath().getLastPathComponent();
                 DefaultMutableTreeNode nod = (DefaultMutableTreeNode) obj;
@@ -111,32 +111,28 @@ papelera p = new papelera();
     }//GEN-LAST:event_destacarActionPerformed
 
     private void eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarActionPerformed
-       TreePath selectedPath = treeu.getSelectionPath();
-        if (treeu.isVisible()) {
-          if (selectedPath != null) {
-    DefaultMutableTreeNode nod = (DefaultMutableTreeNode) selectedPath.getLastPathComponent();
-    DefaultMutableTreeNode parent = (DefaultMutableTreeNode) nod.getParent();
-    if (parent != null) {
-        parent.remove(nod);
-    } else {
-        treeu.setModel(null);
-    }
-   ((DefaultTreeModel) treeu.getModel()).reload();
-               
-   
-   DefaultTreeModel model; 
-               model = (DefaultTreeModel) p.getTree().getModel();
-       
-           
+        
+        JTree t = p.getTree();
+         Object obj= treeu.getSelectionPath().getLastPathComponent();
+        DefaultMutableTreeNode nod = (DefaultMutableTreeNode) obj;
+
+        DefaultTreeModel model = (DefaultTreeModel) treeu.getModel();
         DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
-        root.add((DefaultMutableTreeNode) nod);
+        root.remove(nod);
         model.reload();
-           
-          }   
-        }
+         
+
+        DefaultTreeModel model2 = (DefaultTreeModel) t.getModel();
+        DefaultMutableTreeNode root2 = (DefaultMutableTreeNode) model2.getRoot();
+        root2.add((DefaultMutableTreeNode) nod);
+        model2.reload();
+
+            
+        
+
     }//GEN-LAST:event_eliminarActionPerformed
 
-    public void destacar(JTree tree){
+    public void destacar(JTree tree) {
         Object obj = tree.getSelectionPath().getLastPathComponent();
         DefaultMutableTreeNode nod = (DefaultMutableTreeNode) obj;
         DefaultTreeModel model = (DefaultTreeModel) tree.getModel();
@@ -173,6 +169,7 @@ papelera p = new papelera();
     void setSize(JPanel treeP) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+
     public JTree getTree() {
         return treeu;
     }

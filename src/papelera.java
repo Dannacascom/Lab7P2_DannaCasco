@@ -1,5 +1,7 @@
 
 import javax.swing.JTree;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -18,6 +20,10 @@ public class papelera extends javax.swing.JPanel {
     public papelera() {
         initComponents();
     }
+    
+  public JTree getTree() {
+        return treep;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -28,12 +34,29 @@ public class papelera extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        pop = new javax.swing.JPopupMenu();
+        eliminar = new javax.swing.JMenuItem();
+        restaurar = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         treep = new javax.swing.JTree();
 
+        eliminar.setText("Eliminar\n");
+        eliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                eliminarActionPerformed(evt);
+            }
+        });
+
+        restaurar.setText("Restaurar\n");
+
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("root");
         treep.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
+        treep.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                treepMouseClicked(evt);
+            }
+        });
         jScrollPane3.setViewportView(treep);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -67,12 +90,32 @@ public class papelera extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-  public JTree getTree() {
-        return treep;
-    }
+    private void eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarActionPerformed
+         Object obj = treep.getSelectionPath().getLastPathComponent();
+        DefaultMutableTreeNode nod = (DefaultMutableTreeNode) obj;
+
+        DefaultTreeModel model = (DefaultTreeModel) treep.getModel();
+        DefaultMutableTreeNode raizArbol = (DefaultMutableTreeNode) model.getRoot();
+        raizArbol.remove(nod);
+        model.reload();
+    }//GEN-LAST:event_eliminarActionPerformed
+
+    private void treepMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_treepMouseClicked
+        // TODO add your handling code here:
+         try {
+            if (evt.isMetaDown()) {
+                pop.show(treep, evt.getX(), evt.getY());
+            }
+        } catch (Exception e) {
+        }
+    }//GEN-LAST:event_treepMouseClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem eliminar;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JPopupMenu pop;
+    private javax.swing.JMenuItem restaurar;
     private javax.swing.JTree treep;
     // End of variables declaration//GEN-END:variables
 }
