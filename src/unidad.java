@@ -20,9 +20,7 @@ import javax.swing.tree.TreePath;
 public class unidad extends javax.swing.JPanel {
 destacados d = new destacados();
 papelera p = new papelera();
-    /**
-     * Creates new form unidad
-     */
+    
     public unidad() {
         initComponents();
     }
@@ -64,9 +62,6 @@ papelera p = new papelera();
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 treeuMouseClicked(evt);
             }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                treeuMousePressed(evt);
-            }
         });
         jScrollPane3.setViewportView(treeu);
 
@@ -89,27 +84,20 @@ papelera p = new papelera();
     }// </editor-fold>//GEN-END:initComponents
 
     private void treeuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_treeuMouseClicked
-        // TODO add your handling code here:
-   
-    }//GEN-LAST:event_treeuMouseClicked
-
-    private void treeuMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_treeuMousePressed
+        // TODO add your handling code here;
        try {
             if (evt.isMetaDown()) {
-                Object obj1
-                        = treeu.getSelectionPath().
-                                getLastPathComponent();
-                DefaultMutableTreeNode nodo_seleccionado = (DefaultMutableTreeNode) obj1;
-                if (nodo_seleccionado.getUserObject() instanceof Carpeta) {
+                Object obj = treeu.getSelectionPath().getLastPathComponent();
+                DefaultMutableTreeNode nod = (DefaultMutableTreeNode) obj;
+                if (nod.getUserObject() instanceof Carpeta) {
                     pop.show(treeu, evt.getX(), evt.getY());
-                } else if (nodo_seleccionado.getUserObject() instanceof Archivo) {
+                } else if (nod.getUserObject() instanceof Archivo) {
                     pop.show(treeu, evt.getX(), evt.getY());
                 }
             }
         } catch (Exception e) {
         }
-    
-    }//GEN-LAST:event_treeuMousePressed
+    }//GEN-LAST:event_treeuMouseClicked
 
     private void destacarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_destacarActionPerformed
         try {
@@ -123,32 +111,28 @@ papelera p = new papelera();
     }//GEN-LAST:event_destacarActionPerformed
 
     private void eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarActionPerformed
+       TreePath selectedPath = treeu.getSelectionPath();
         if (treeu.isVisible()) {
-          Object obj =treeu.getSelectionPath().getLastPathComponent();
-        DefaultMutableTreeNode nod = (DefaultMutableTreeNode) obj;
-
-        DefaultTreeModel model = (DefaultTreeModel) treeu.getModel();
+          if (selectedPath != null) {
+    DefaultMutableTreeNode nod = (DefaultMutableTreeNode) selectedPath.getLastPathComponent();
+    DefaultMutableTreeNode parent = (DefaultMutableTreeNode) nod.getParent();
+    if (parent != null) {
+        parent.remove(nod);
+    } else {
+        treeu.setModel(null);
+    }
+   ((DefaultTreeModel) treeu.getModel()).reload();
+               
+   
+   DefaultTreeModel model; 
+               model = (DefaultTreeModel) p.getTree().getModel();
+       
+           
         DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
-        root.remove(nod);
+        root.add((DefaultMutableTreeNode) nod);
         model.reload();
-        
-        DefaultTreeModel model2 = (DefaultTreeModel) p.getTree().getModel();
-        DefaultMutableTreeNode raiz = (DefaultMutableTreeNode) model2.getRoot();
-        raiz.add((DefaultMutableTreeNode) nod);
-        model2.reload();
-        } else {
-            Object obj =d.getTree().getSelectionPath().getLastPathComponent();
-        DefaultMutableTreeNode nod = (DefaultMutableTreeNode) obj;
-
-        DefaultTreeModel model = (DefaultTreeModel) d.getTree().getModel();
-        DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
-        root.remove(nod);
-        model.reload();
-        
-        DefaultTreeModel model2 = (DefaultTreeModel) p.getTree().getModel();
-        DefaultMutableTreeNode raiz = (DefaultMutableTreeNode) model2.getRoot();
-        raiz.add((DefaultMutableTreeNode) nod);
-        model2.reload();
+           
+          }   
         }
     }//GEN-LAST:event_eliminarActionPerformed
 
