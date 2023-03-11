@@ -1,6 +1,12 @@
 
+import java.awt.event.MouseEvent;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JTree;
+import javax.swing.SwingUtilities;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreePath;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -12,7 +18,8 @@ import javax.swing.JTree;
  * @author Danna Casco
  */
 public class unidad extends javax.swing.JPanel {
-
+destacados d = new destacados();
+papelera p = new papelera();
     /**
      * Creates new form unidad
      */
@@ -29,11 +36,38 @@ public class unidad extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        pop = new javax.swing.JPopupMenu();
+        destacar = new javax.swing.JMenuItem();
+        eliminar = new javax.swing.JMenuItem();
         jScrollPane3 = new javax.swing.JScrollPane();
         treeu = new javax.swing.JTree();
 
+        destacar.setText("Destacar\n");
+        destacar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                destacarActionPerformed(evt);
+            }
+        });
+        pop.add(destacar);
+
+        eliminar.setText("Eliminar");
+        eliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                eliminarActionPerformed(evt);
+            }
+        });
+        pop.add(eliminar);
+
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("root");
         treeu.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
+        treeu.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                treeuMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                treeuMousePressed(evt);
+            }
+        });
         jScrollPane3.setViewportView(treeu);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -54,11 +88,97 @@ public class unidad extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void treeuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_treeuMouseClicked
+        // TODO add your handling code here:
+   
+    }//GEN-LAST:event_treeuMouseClicked
 
+    private void treeuMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_treeuMousePressed
+       try {
+            if (evt.isMetaDown()) {
+                Object obj1
+                        = treeu.getSelectionPath().
+                                getLastPathComponent();
+                DefaultMutableTreeNode nodo_seleccionado = (DefaultMutableTreeNode) obj1;
+                if (nodo_seleccionado.getUserObject() instanceof Carpeta) {
+                    pop.show(treeu, evt.getX(), evt.getY());
+                } else if (nodo_seleccionado.getUserObject() instanceof Archivo) {
+                    pop.show(treeu, evt.getX(), evt.getY());
+                }
+            }
+        } catch (Exception e) {
+        }
+    
+    }//GEN-LAST:event_treeuMousePressed
+
+    private void destacarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_destacarActionPerformed
+        try {
+            if (treeu.isVisible()) {
+                destacar(treeu);
+            } else {
+                destacar(d.getTree());
+            }
+        } catch (Exception e) {
+        }
+    }//GEN-LAST:event_destacarActionPerformed
+
+    private void eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarActionPerformed
+        if (treeu.isVisible()) {
+          Object obj =treeu.getSelectionPath().getLastPathComponent();
+        DefaultMutableTreeNode nod = (DefaultMutableTreeNode) obj;
+
+        DefaultTreeModel model = (DefaultTreeModel) treeu.getModel();
+        DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
+        root.remove(nod);
+        model.reload();
+        
+        DefaultTreeModel model2 = (DefaultTreeModel) p.getTree().getModel();
+        DefaultMutableTreeNode raiz = (DefaultMutableTreeNode) model2.getRoot();
+        raiz.add((DefaultMutableTreeNode) nod);
+        model2.reload();
+        } else {
+            Object obj =d.getTree().getSelectionPath().getLastPathComponent();
+        DefaultMutableTreeNode nod = (DefaultMutableTreeNode) obj;
+
+        DefaultTreeModel model = (DefaultTreeModel) d.getTree().getModel();
+        DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
+        root.remove(nod);
+        model.reload();
+        
+        DefaultTreeModel model2 = (DefaultTreeModel) p.getTree().getModel();
+        DefaultMutableTreeNode raiz = (DefaultMutableTreeNode) model2.getRoot();
+        raiz.add((DefaultMutableTreeNode) nod);
+        model2.reload();
+        }
+    }//GEN-LAST:event_eliminarActionPerformed
+
+    public void destacar(JTree tree){
+        Object obj = tree.getSelectionPath().getLastPathComponent();
+        DefaultMutableTreeNode nod = (DefaultMutableTreeNode) obj;
+        DefaultTreeModel model = (DefaultTreeModel) tree.getModel();
+        DefaultMutableTreeNode roots = (DefaultMutableTreeNode) model.getRoot();
+        roots.remove(nod);
+        model.reload();
+
+        DefaultTreeModel model2;
+        if (tree.equals(treeu)) {
+            model2 = (DefaultTreeModel) d.getTree().getModel();
+        } else if (tree.equals(p.getTree())) {
+            model2 = (DefaultTreeModel) treeu.getModel();
+        } else {
+            model2 = (DefaultTreeModel) treeu.getModel();
+        }
+        DefaultMutableTreeNode root2 = (DefaultMutableTreeNode) model2.getRoot();
+        root2.add((DefaultMutableTreeNode) nod);
+        model2.reload();
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem destacar;
+    private javax.swing.JMenuItem eliminar;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JPopupMenu pop;
     private javax.swing.JPanel treeP;
     private javax.swing.JPanel treeP1;
     private javax.swing.JTree treeUnidad;

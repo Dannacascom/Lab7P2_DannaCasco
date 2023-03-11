@@ -22,6 +22,7 @@ public class MainLab7 extends javax.swing.JFrame {
     }
 
    
+   
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -108,7 +109,7 @@ public class MainLab7 extends javax.swing.JFrame {
         treeP.setLayout(treePLayout);
         treePLayout.setHorizontalGroup(
             treePLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 298, Short.MAX_VALUE)
+            .addGap(0, 334, Short.MAX_VALUE)
         );
         treePLayout.setVerticalGroup(
             treePLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -124,7 +125,7 @@ public class MainLab7 extends javax.swing.JFrame {
                 .addComponent(botones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(51, 51, 51)
                 .addComponent(treeP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(59, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(bar, javax.swing.GroupLayout.PREFERRED_SIZE, 432, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -133,8 +134,8 @@ public class MainLab7 extends javax.swing.JFrame {
         bgLayout.setVerticalGroup(
             bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(bgLayout.createSequentialGroup()
-                .addGap(77, 77, 77)
-                .addComponent(bar, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(72, 72, 72)
+                .addComponent(bar, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(botones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -213,7 +214,7 @@ public class MainLab7 extends javax.swing.JFrame {
         DefaultMutableTreeNode raiz = (DefaultMutableTreeNode) modelo.getRoot();
 
          String[] opciones = {"Archivo", "Carpeta"};
-        String op = (String) JOptionPane.showInputDialog(null, "Seleccione una opción", "Creacion", JOptionPane.PLAIN_MESSAGE, null, opciones, opciones[0]);
+        String op = (String) JOptionPane.showInputDialog(this, "Seleccione una opción", "Creacion", JOptionPane.PLAIN_MESSAGE, null, opciones, opciones[0]);
         String name ;
         String link;
         if (op.equals("Carpeta")) {
@@ -228,11 +229,12 @@ public class MainLab7 extends javax.swing.JFrame {
             raiz.add(carp);
         } else {
             name = JOptionPane.showInputDialog(this, "Nombre de Archivo:");
-           
+           String[] ext = {"pdf", "docx","txt","png","jpg"};
             Archivo arc = new Archivo(
                     name,
                     "dive.google.com/" +cadenaAleatoria(10),
-                    JOptionPane.showInputDialog(this, "Extensión:"),
+                     
+           (String) JOptionPane.showInputDialog(this, "Seleccione una opción", "Creacion", JOptionPane.PLAIN_MESSAGE, null, ext, ext[0]),
                     Integer.parseInt(JOptionPane.showInputDialog(this, "Tamaño:"))
             );
             ar.add(arc);
